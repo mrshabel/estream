@@ -26,9 +26,11 @@ func main() {
 	defer close(OrderProducer.DeliveryChan)
 
 	// produce bulk messages
+	log.Println("Starting bulk order placing...")
 	for idx := range orderCount {
-		order := core.Order{ID: int64(idx), Product: getRandomProduct(), CreatedAt: time.Now().UTC()}
+		order := getRandomOrder(idx)
 		OrderProducer.placeOrder(order)
+		log.Printf("Order placed successfully: %s\n", order)
 		// throttle requests
 		time.Sleep(2 * time.Second)
 	}
@@ -44,6 +46,7 @@ var products = []string{
 	"FTY",
 }
 
-func getRandomProduct() string {
-	return products[rand.Intn(len(products))]
+func getRandomOrder(idx int) core.Order {
+	product := products[rand.Intn(len(products))]
+	return core.Order{ID: idx, Product: product, Quantity: uint(rand.Intn(100)), CreatedAt: time.Now().UTC()}
 }

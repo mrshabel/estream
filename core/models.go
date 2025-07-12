@@ -6,11 +6,12 @@ import (
 )
 
 type Order struct {
-	ID        int64     `json:"id"`
+	ID        int       `json:"id"`
 	Product   string    `json:"product"`
+	Quantity  uint      `json:"quantity"`
 	CreatedAt time.Time `json:"createdAt"`
 }
 
-func (o *Order) String() string {
+func (o Order) String() string {
 	return fmt.Sprintf("Order %d: %v", o.ID, o.Product)
 }

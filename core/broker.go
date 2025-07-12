@@ -9,7 +9,7 @@ type Config struct {
 }
 
 var cfg = &Config{
-	Brokers: "localhost:9002",
+	Brokers: "localhost:9092",
 }
 
 // NewProducer creates a new instance of a kafka producer for the specified topics
